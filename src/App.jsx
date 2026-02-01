@@ -16,23 +16,18 @@ import {
   Briefcase,
   Layers,
   Book,
-  ChevronDown,
 } from "lucide-react";
 
-import { FaReact, FaNodeJs } from "react-icons/fa";
+import { FaReact } from "react-icons/fa";
 import {
   SiPhp,
   SiJavascript,
   SiTailwindcss,
   SiLaravel,
   SiCodeigniter,
-  SiMysql,
-  SiGit,
   SiHtml5,
   SiCss3,
   SiBootstrap,
-  SiMongodb,
-  SiFirebase,
 } from "react-icons/si";
 import Notification from "./Notification";
 
@@ -41,7 +36,6 @@ function App() {
   const [activeSection, setActiveSection] = useState("home");
   const [typedText, setTypedText] = useState("");
   const [scrollProgress, setScrollProgress] = useState(0);
-  const [showAll, setShowAll] = useState(false);
   const fullText = "Informatics Student | Web Developer | Digital Creative";
 
   const [notification, setNotification] = useState({
@@ -57,7 +51,6 @@ function App() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Add handleChange function
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -66,7 +59,6 @@ function App() {
     }));
   };
 
-  // Updated handleSubmit function for Formspree
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
@@ -143,7 +135,7 @@ function App() {
       document.documentElement.scrollHeight - window.innerHeight;
     const progress = Math.min(
       100,
-      Math.max(0, (window.scrollY / totalScroll) * 100)
+      Math.max(0, (window.scrollY / totalScroll) * 100),
     );
     setScrollProgress(progress);
 
@@ -184,12 +176,15 @@ function App() {
     }
   }, [typedText]);
 
+  // ...existing code...
+
   // Particle effect component
-  const ParticleField = () => {
+  const ParticleField = memo(() => {
     const canvasRef = useRef(null);
     const particlesRef = useRef([]);
     const animationRef = useRef(null);
     const mouseRef = useRef({ x: 0, y: 0 });
+    const scrollRef = useRef(0);
 
     useEffect(() => {
       const canvas = canvasRef.current;
@@ -209,28 +204,23 @@ function App() {
       const particles = [];
       // Reduce particle count for better performance
       const particleCount = Math.min(
-        300,
-        Math.floor((window.innerWidth * window.innerHeight) / 10000)
+        200,
+        Math.floor((window.innerWidth * window.innerHeight) / 15000),
       );
       const mouseRadius = 100;
 
       class Particle {
         constructor() {
-          this.init();
-          // Randomize initial positions across the screen
           this.x = Math.random() * (canvas.width / dpr);
           this.y = Math.random() * (canvas.height / dpr);
-        }
-
-        init() {
-          this.x = Math.random() * (canvas.width / dpr);
-          this.y = Math.random() * (canvas.height / dpr);
-          this.size = Math.random() * 1.5 + 0.5;
-          this.speedX = (Math.random() - 0.5) * 0.5;
-          this.speedY = (Math.random() - 0.5) * 0.5;
+          this.size = Math.random() * 1.2 + 0.4;
+          this.speedX = (Math.random() - 0.5) * 0.3;
+          this.speedY = (Math.random() - 0.5) * 0.3;
           this.glowing = false;
-          // Add base opacity for smoother appearance
-          this.baseOpacity = 0.3 + Math.random() * 0.4;
+          // Base opacity smooth - tidak kedip di awal
+          this.baseOpacity = 0.4 + Math.random() * 0.3;
+          this.targetOpacity = this.baseOpacity;
+          this.currentOpacity = this.baseOpacity;
         }
 
         update() {
@@ -241,21 +231,27 @@ function App() {
           if (distance < mouseRadius) {
             const force = (mouseRadius - distance) / mouseRadius;
             const angle = Math.atan2(dy, dx);
-            const pushX = Math.cos(angle) * force * 3;
-            const pushY = Math.sin(angle) * force * 3;
+            const pushX = Math.cos(angle) * force * 2.5;
+            const pushY = Math.sin(angle) * force * 2.5;
 
             this.x -= pushX;
             this.y -= pushY;
+            this.targetOpacity = 0.7;
             this.glowing = true;
           } else {
+            this.targetOpacity = this.baseOpacity;
             this.glowing = false;
           }
 
-          // Update position
+          // Smooth opacity transition
+          this.currentOpacity +=
+            (this.targetOpacity - this.currentOpacity) * 0.1;
+
+          // Update position dengan gerakan yang lebih smooth
           this.x += this.speedX;
           this.y += this.speedY;
 
-          // Improved edge wrapping
+          // Edge wrapping - smooth tanpa jarak
           if (this.x < 0) this.x = canvas.width / dpr;
           if (this.x > canvas.width / dpr) this.x = 0;
           if (this.y < 0) this.y = canvas.height / dpr;
@@ -263,14 +259,13 @@ function App() {
         }
 
         draw() {
-          const opacity = this.glowing ? 0.8 : this.baseOpacity;
           if (this.glowing) {
-            ctx.shadowBlur = 15;
-            ctx.shadowColor = "rgba(100, 255, 255, 0.5)";
-            ctx.fillStyle = `rgba(100, 255, 255, ${opacity})`;
+            ctx.shadowBlur = 12;
+            ctx.shadowColor = "rgba(100, 255, 255, 0.4)";
+            ctx.fillStyle = `rgba(100, 255, 255, ${this.currentOpacity})`;
           } else {
             ctx.shadowBlur = 0;
-            ctx.fillStyle = `rgba(100, 255, 255, ${opacity})`;
+            ctx.fillStyle = `rgba(100, 255, 255, ${this.currentOpacity})`;
           }
 
           ctx.beginPath();
@@ -310,18 +305,27 @@ function App() {
         mouseRef.current.y = event.touches[0].clientY;
       };
 
+      // Track scroll untuk fixed position
+      const handleScroll = () => {
+        scrollRef.current = window.scrollY;
+      };
+
       // Throttled resize handler
       let resizeTimeout;
       const handleResize = () => {
         if (resizeTimeout) clearTimeout(resizeTimeout);
         resizeTimeout = setTimeout(() => {
           resizeCanvas();
-          particlesRef.current.forEach((particle) => particle.init());
+          particlesRef.current.forEach((particle) => {
+            particle.x = Math.random() * (canvas.width / dpr);
+            particle.y = Math.random() * (canvas.height / dpr);
+          });
         }, 200);
       };
 
       window.addEventListener("mousemove", handleMouseMove);
       window.addEventListener("touchmove", handleTouchMove, { passive: true });
+      window.addEventListener("scroll", handleScroll, { passive: true });
       window.addEventListener("resize", handleResize);
 
       // Start animation
@@ -331,6 +335,7 @@ function App() {
       return () => {
         window.removeEventListener("mousemove", handleMouseMove);
         window.removeEventListener("touchmove", handleTouchMove);
+        window.removeEventListener("scroll", handleScroll);
         window.removeEventListener("resize", handleResize);
         if (animationRef.current) {
           cancelAnimationFrame(animationRef.current);
@@ -353,10 +358,15 @@ function App() {
           zIndex: 0,
           willChange: "transform",
           transform: "translateZ(0)",
+          backfaceVisibility: "hidden",
         }}
       />
     );
-  };
+  });
+
+  ParticleField.displayName = "ParticleField";
+
+  // ...existing code...
 
   // Stats data
   const stats = [
@@ -417,14 +427,6 @@ function App() {
       color: "bg-[#61DAFB]",
     },
     {
-      name: "Node.js",
-      description:
-        "Developing server-side applications and RESTful APIs with Express.js and npm ecosystem.",
-      category: "Backend Runtime",
-      icon: <FaNodeJs className="w-10 h-10 text-[#339933]" />,
-      color: "bg-[#339933]",
-    },
-    {
       name: "TailwindCSS",
       description:
         "Building responsive interfaces with utility-first CSS framework and custom design systems.",
@@ -448,38 +450,6 @@ function App() {
       icon: <SiCodeigniter className="w-10 h-10 text-[#EF4223]" />,
       color: "bg-[#EF4223]",
     },
-    {
-      name: "MySQL",
-      description:
-        "Database design and management with SQL queries, relationships, and optimization.",
-      category: "Database",
-      icon: <SiMysql className="w-10 h-10 text-[#4479A1]" />,
-      color: "bg-[#4479A1]",
-    },
-    {
-      name: "Git",
-      description:
-        "Version control and collaboration with branching strategies and team workflow.",
-      category: "Development Tool",
-      icon: <SiGit className="w-10 h-10 text-[#F05032]" />,
-      color: "bg-[#F05032]",
-    },
-    {
-      name: "MongoDB",
-      description:
-        "NoSQL database implementation for scalable applications with flexible document-based storage.",
-      category: "Database",
-      icon: <SiMongodb className="w-10 h-10 text-[#47A248]" />,
-      color: "bg-[#47A248]",
-    },
-    {
-      name: "Firebase",
-      description:
-        "Cloud-based platform for building web and mobile applications with real-time database and authentication.",
-      category: "Database",
-      icon: <SiFirebase className="w-10 h-10 text-[#FFCA28]" />,
-      color: "bg-[#FFCA28]",
-    },
   ];
 
   // Project data with enhanced details
@@ -492,25 +462,25 @@ function App() {
       image: "./project1.png",
       link: "#",
       github: "#",
-      featured: true,
-    },
-    {
-      title: "News",
-      description:
-        "Modern news platform delivering curated, real-time information across multiple categories with an intuitive reading experience",
-      tech: ["Laravel", "TailwindCSS", "MySql"],
-      image: "./project2.png",
-      link: "#",
-      github: "#",
       featured: false,
     },
     {
-      title: "Perpustakaan",
+      title: "SmartVillage",
       description:
-        "Digital library management system streamlining book lending, member tracking, and inventory management with a user-friendly interface",
-      tech: ["Code Igniter", "CSS", "MySql"],
-      image: "./project3.png",
-      link: "#",
+        "A village profile website that provides official information, public services, and digital transparency for Desa Sokop residents and visitors",
+      tech: ["Laravel", "TailwindCSS", "MySql"],
+      image: "./Screenshot 2026-02-01 142445.png",
+      link: "https://desasokop.com/",
+      github: "#",
+      featured: true,
+    },
+    {
+      title: "SmartMomss",
+      description:
+        "A maternal health platform website designed to promote the SmartMomss app and manage pregnancy-related content through an integrated admin dashboard",
+      tech: ["Laravel", "TailwindCSS", "MySql", "Rest API"],
+      image: "./Screenshot 2026-02-01 142556.png",
+      link: "https://smartmomss.com/",
       github: "#",
       featured: false,
     },
@@ -565,7 +535,7 @@ function App() {
                   >
                     {item}
                   </motion.a>
-                )
+                ),
               )}
             </div>
 
@@ -606,7 +576,7 @@ function App() {
                     >
                       {item}
                     </motion.a>
-                  )
+                  ),
                 )}
               </div>
             </motion.div>
