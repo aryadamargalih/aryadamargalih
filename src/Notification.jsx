@@ -1,4 +1,3 @@
-import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { CheckCircle, XCircle, X } from "lucide-react";
 
@@ -7,32 +6,29 @@ const Notification = ({ message, type, isVisible, onClose }) => {
     <AnimatePresence>
       {isVisible && (
         <motion.div
-          initial={{ opacity: 0, y: -100, scale: 0.9 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          exit={{ opacity: 0, y: -100, scale: 0.9 }}
+          initial={{ opacity: 0, y: -40 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -40 }}
           className="fixed top-4 right-4 z-50"
         >
           <div
-            className="p-4 rounded-lg backdrop-blur-xl border flex items-center gap-3 min-w-[320px] shadow-2xl"
+            className="p-4 rounded-md border flex items-center gap-3 min-w-[320px] bg-[var(--panel)] font-mono text-sm"
             style={{
-              background: "rgba(15, 23, 42, 0.8)",
-              borderColor: type === "success" ? "#22d3ee" : "#ef4444",
-              boxShadow: `0 0 20px ${
-                type === "success" ? "#22d3ee33" : "#ef444433"
-              }`,
+              borderColor: type === "success" ? "var(--accent)" : "#ef4444",
             }}
           >
             {type === "success" ? (
-              <CheckCircle className="w-6 h-6 text-cyan-400" />
+              <CheckCircle className="w-5 h-5 text-[var(--accent)] shrink-0" />
             ) : (
-              <XCircle className="w-6 h-6 text-red-400" />
+              <XCircle className="w-5 h-5 text-red-400 shrink-0" />
             )}
-            <p className="text-white flex-1">{message}</p>
+            <p className="text-[var(--ink)] flex-1">{message}</p>
             <button
               onClick={onClose}
               className="p-1 hover:bg-white/10 rounded-full transition-colors"
+              aria-label="Close notification"
             >
-              <X className="w-4 h-4 text-gray-400" />
+              <X className="w-4 h-4 text-[var(--ink-dim)]" />
             </button>
           </div>
         </motion.div>
