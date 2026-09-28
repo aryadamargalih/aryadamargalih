@@ -6,7 +6,12 @@ function CustomCursor() {
   const [enabled, setEnabled] = useState(false);
 
   useEffect(() => {
-    setEnabled(window.matchMedia("(pointer: fine)").matches);
+    const hasFinePointer = window.matchMedia(
+      "(hover: hover) and (pointer: fine)",
+    ).matches;
+    const hasTouch =
+      "ontouchstart" in window || navigator.maxTouchPoints > 0;
+    setEnabled(hasFinePointer && !hasTouch);
   }, []);
 
   useEffect(() => {

@@ -156,7 +156,6 @@ export const projects = [
       "./smartmoms-app-15.png",
       "./smartmoms-app-16.png",
       "./smartmoms-app-17.png",
-      "./smartmoms-app-18.png",
     ],
     link: "#",
     github: "#",

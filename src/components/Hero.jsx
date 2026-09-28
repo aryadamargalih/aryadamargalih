@@ -8,14 +8,15 @@ function Hero({ sectionRef, typedText, scrollToSection }) {
     <section
       id="home"
       ref={sectionRef}
-      className="min-h-screen flex items-center relative pt-24 pb-16"
+      className="lg:min-h-screen flex items-start lg:items-center relative pt-28 lg:pt-24 pb-16"
     >
-      <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center relative z-10">
+      <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative z-10">
         {/* Left: framed photo + intro */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
+          className="w-full"
         >
           <div className="inline-flex items-center gap-2 px-3 py-1 mb-4 border border-[var(--line)] rounded-full font-mono text-xs text-[var(--ink-dim)]">
             <span className="relative flex h-2 w-2">
@@ -58,7 +59,7 @@ function Hero({ sectionRef, typedText, scrollToSection }) {
           initial={{ opacity: 0, x: 24 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6, delay: 0.15 }}
-          className="bg-[var(--panel)] border border-[var(--line)] rounded-md overflow-hidden shadow-2xl"
+          className="w-full bg-[var(--panel)] border border-[var(--line)] rounded-md overflow-hidden shadow-2xl"
         >
           <div className="flex items-center gap-2 px-4 py-3 border-b border-[var(--line)] bg-[#16181d]">
             <span className="w-3 h-3 rounded-full bg-[#4a4e58]" />
