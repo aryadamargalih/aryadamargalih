@@ -4,10 +4,7 @@ import { skills } from "../data";
 function SkillChip({ skill }) {
   const Icon = skill.icon;
   return (
-    <div className="group relative flex items-center gap-3 px-5 py-3 mx-2 border border-[var(--line)] rounded-md bg-[var(--panel)] shrink-0 transition-all duration-300 hover:-translate-y-1 hover:border-[var(--accent)]/70 hover:shadow-[0_0_24px_-6px_var(--accent)]">
-      {/* corner brackets, appear on hover */}
-      <span className="absolute -top-1 -left-1 w-2.5 h-2.5 border-t border-l border-[var(--accent)] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-      <span className="absolute -bottom-1 -right-1 w-2.5 h-2.5 border-b border-r border-[var(--accent)] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+    <div className="glass-sm glass-hover group relative flex items-center gap-3 px-5 py-3 mx-2 rounded-2xl shrink-0 duration-300 hover:-translate-y-1">
 
       <div className="relative shrink-0 w-6 h-6 flex items-center justify-center">
         <span

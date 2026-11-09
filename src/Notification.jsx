@@ -12,7 +12,7 @@ const Notification = ({ message, type, isVisible, onClose }) => {
           className="fixed top-4 right-4 z-50"
         >
           <div
-            className="p-4 rounded-md border flex items-center gap-3 min-w-[320px] bg-[var(--panel)] font-mono text-sm"
+            className="glass relative p-4 rounded-2xl flex items-center gap-3 min-w-[320px] font-mono text-sm"
             style={{
               borderColor: type === "success" ? "var(--accent)" : "#ef4444",
             }}

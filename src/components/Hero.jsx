@@ -18,7 +18,7 @@ function Hero({ sectionRef, typedText, scrollToSection }) {
           transition={{ duration: 0.6 }}
           className="w-full"
         >
-          <div className="inline-flex items-center gap-2 px-3 py-1 mb-4 border border-[var(--line)] rounded-full font-mono text-xs text-[var(--ink-dim)]">
+          <div className="glass relative inline-flex items-center gap-2 px-3 py-1.5 mb-4 rounded-full font-mono text-xs text-[var(--ink-dim)]">
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--accent)] opacity-75" />
               <span className="relative inline-flex h-2 w-2 rounded-full bg-[var(--accent)]" />
@@ -39,14 +39,14 @@ function Hero({ sectionRef, typedText, scrollToSection }) {
           <div className="flex flex-wrap gap-4">
             <a
               href="#"
-              className="px-6 py-3 bg-[var(--accent)] text-[#14161a] font-medium rounded-sm flex items-center gap-2 hover:brightness-110 transition-all"
+              className="glass-accent px-6 py-3 font-medium rounded-full items-center gap-2"
             >
               <Download size={18} />
               Download CV
             </a>
             <button
               onClick={() => scrollToSection("contact")}
-              className="px-6 py-3 border border-[var(--line)] rounded-sm flex items-center gap-2 hover:border-[var(--accent)] hover:text-[var(--accent)] transition-all"
+              className="glass glass-hover relative px-6 py-3 rounded-full flex items-center gap-2 hover:text-[var(--accent)]"
             >
               <Mail size={18} />
               Contact Me
@@ -59,12 +59,12 @@ function Hero({ sectionRef, typedText, scrollToSection }) {
           initial={{ opacity: 0, x: 24 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6, delay: 0.15 }}
-          className="w-full bg-[var(--panel)] border border-[var(--line)] rounded-md overflow-hidden shadow-2xl"
+          className="glass relative w-full rounded-3xl overflow-hidden"
         >
-          <div className="flex items-center gap-2 px-4 py-3 border-b border-[var(--line)] bg-[#16181d]">
-            <span className="w-3 h-3 rounded-full bg-[#4a4e58]" />
-            <span className="w-3 h-3 rounded-full bg-[#4a4e58]" />
-            <span className="w-3 h-3 rounded-full bg-[#4a4e58]" />
+          <div className="flex items-center gap-2 px-4 py-3 border-b border-white/10 bg-white/5">
+            <span className="w-3 h-3 rounded-full bg-white/30" />
+            <span className="w-3 h-3 rounded-full bg-white/30" />
+            <span className="w-3 h-3 rounded-full bg-white/30" />
             <span className="ml-2 font-mono text-xs text-[var(--ink-dim)]">
               whoami.sh
             </span>

@@ -23,7 +23,7 @@ function Experience({ sectionRef }) {
         {experiences.length > 0 ? (
           <div className="relative">
             {/* timeline rail */}
-            <div className="absolute left-[15px] top-2 bottom-2 w-px bg-[var(--line)]" />
+            <div className="absolute left-[15px] top-2 bottom-2 w-px bg-white/15" />
 
             <div className="space-y-10">
               {experiences.map((exp, index) => (
@@ -36,14 +36,14 @@ function Experience({ sectionRef }) {
                   className="group relative pl-11"
                 >
                   {/* timeline dot */}
-                  <div className="absolute left-0 top-1.5 w-[31px] h-[31px] rounded-full border-2 border-[var(--line)] bg-[var(--bg)] flex items-center justify-center transition-colors duration-300 group-hover:border-[var(--accent)]">
+                  <div className="absolute left-0 top-1.5 w-[31px] h-[31px] rounded-full glass-sm flex items-center justify-center">
                     <Briefcase
                       size={14}
                       className="text-[var(--ink-dim)] transition-colors duration-300 group-hover:text-[var(--accent)]"
                     />
                   </div>
 
-                  <div className="border border-[var(--line)] rounded-md p-6 transition-all duration-300 group-hover:border-[var(--accent)]/50 group-hover:-translate-y-0.5 group-hover:shadow-[0_0_24px_-8px_var(--accent)]">
+                  <div className="glass relative rounded-3xl p-6 duration-300 group-hover:-translate-y-0.5 group-hover:shadow-[0_0_30px_-8px_var(--accent)]">
                     <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-2 mb-3">
                       <div>
                         <h3 className="font-display text-lg font-medium">
@@ -54,7 +54,7 @@ function Experience({ sectionRef }) {
                           {exp.company}
                         </p>
                       </div>
-                      <span className="inline-flex items-center gap-1.5 self-start font-mono text-xs px-2.5 py-1 rounded-sm border border-[var(--line)] text-[var(--ink-dim)] whitespace-nowrap">
+                      <span className="inline-flex items-center gap-1.5 self-start font-mono text-xs px-2.5 py-1 rounded-full border border-white/15 bg-white/5 text-[var(--ink-dim)] whitespace-nowrap">
                         <Clock size={12} />
                         {exp.duration}
                       </span>
@@ -68,7 +68,7 @@ function Experience({ sectionRef }) {
             </div>
           </div>
         ) : (
-          <div className="border border-dashed border-[var(--line)] rounded-md p-10 md:p-14 font-mono">
+          <div className="glass relative rounded-3xl p-10 md:p-14 font-mono">
             <p className="text-[var(--ink-dim)] text-sm">
               <span className="text-[var(--accent)]">$</span> ls
               ./experience

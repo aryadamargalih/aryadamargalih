@@ -1,6 +1,6 @@
 function Footer() {
   return (
-    <footer className="py-8 border-t border-[var(--line)] relative z-10">
+    <footer className="py-8 border-t border-white/10 relative z-10">
       <div className="max-w-6xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
         <p className="font-mono text-xs text-[var(--ink-dim)]">
           © 2025 Arya Damar Galih
