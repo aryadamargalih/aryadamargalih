@@ -38,7 +38,7 @@ function Hero({ sectionRef, typedText, scrollToSection }) {
 
           <div className="flex flex-wrap gap-4">
             <a
-              href="#"
+              href="./CV_Arya_Damar_Galih.pdf"
               className="glass-accent px-6 py-3 font-medium rounded-full items-center gap-2"
             >
               <Download size={18} />
