@@ -60,7 +60,7 @@ function CustomCursor() {
   return (
     <div
       ref={dotRef}
-      className="fixed top-0 left-0 z-[100] pointer-events-none border border-[var(--accent)] bg-white/10 backdrop-blur-[2px] transition-[width,height,border-radius] duration-150"
+      className="fixed top-0 left-0 z-[100] pointer-events-none border border-[var(--accent)] bg-[rgb(var(--tint)/0.10)] backdrop-blur-[2px] transition-[width,height,border-radius] duration-150"
       style={{ width: 16, height: 16, borderRadius: 9999 }}
     />
   );

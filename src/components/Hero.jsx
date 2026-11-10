@@ -61,10 +61,10 @@ function Hero({ sectionRef, typedText, scrollToSection }) {
           transition={{ duration: 0.6, delay: 0.15 }}
           className="glass relative w-full rounded-3xl overflow-hidden"
         >
-          <div className="flex items-center gap-2 px-4 py-3 border-b border-white/10 bg-white/5">
-            <span className="w-3 h-3 rounded-full bg-white/30" />
-            <span className="w-3 h-3 rounded-full bg-white/30" />
-            <span className="w-3 h-3 rounded-full bg-white/30" />
+          <div className="flex items-center gap-2 px-4 py-3 border-b border-[rgb(var(--tint)/0.10)] bg-[rgb(var(--tint)/0.05)]">
+            <span className="w-3 h-3 rounded-full bg-[rgb(var(--tint)/0.30)]" />
+            <span className="w-3 h-3 rounded-full bg-[rgb(var(--tint)/0.30)]" />
+            <span className="w-3 h-3 rounded-full bg-[rgb(var(--tint)/0.30)]" />
             <span className="ml-2 font-mono text-xs text-[var(--ink-dim)]">
               whoami.sh
             </span>

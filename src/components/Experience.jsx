@@ -23,7 +23,7 @@ function Experience({ sectionRef }) {
         {experiences.length > 0 ? (
           <div className="relative">
             {/* timeline rail */}
-            <div className="absolute left-[15px] top-2 bottom-2 w-px bg-white/15" />
+            <div className="absolute left-[15px] top-2 bottom-2 w-px bg-[rgb(var(--tint)/0.15)]" />
 
             <div className="space-y-10">
               {experiences.map((exp, index) => (
@@ -54,7 +54,7 @@ function Experience({ sectionRef }) {
                           {exp.company}
                         </p>
                       </div>
-                      <span className="inline-flex items-center gap-1.5 self-start font-mono text-xs px-2.5 py-1 rounded-full border border-white/15 bg-white/5 text-[var(--ink-dim)] whitespace-nowrap">
+                      <span className="inline-flex items-center gap-1.5 self-start font-mono text-xs px-2.5 py-1 rounded-full border border-[rgb(var(--tint)/0.15)] bg-[rgb(var(--tint)/0.05)] text-[var(--ink-dim)] whitespace-nowrap">
                         <Clock size={12} />
                         {exp.duration}
                       </span>

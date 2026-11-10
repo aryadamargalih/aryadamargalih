@@ -9,8 +9,10 @@ import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import CustomCursor from "./components/CustomCursor";
 import Notification from "./Notification";
+import { useTheme } from "./theme/useTheme";
 
 function App() {
+  const { theme, toggleTheme } = useTheme();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
   const [typedText, setTypedText] = useState("");
@@ -149,6 +151,8 @@ function App() {
         setIsMenuOpen={setIsMenuOpen}
         scrollToSection={scrollToSection}
         scrollProgress={scrollProgress}
+        theme={theme}
+        toggleTheme={toggleTheme}
       />
 
       <Hero

@@ -14,18 +14,18 @@ const Notification = ({ message, type, isVisible, onClose }) => {
           <div
             className="glass relative p-4 rounded-2xl flex items-center gap-3 min-w-[320px] font-mono text-sm"
             style={{
-              borderColor: type === "success" ? "var(--accent)" : "#ef4444",
+              borderColor: type === "success" ? "var(--accent)" : "var(--danger)",
             }}
           >
             {type === "success" ? (
               <CheckCircle className="w-5 h-5 text-[var(--accent)] shrink-0" />
             ) : (
-              <XCircle className="w-5 h-5 text-red-400 shrink-0" />
+              <XCircle className="w-5 h-5 text-[var(--danger)] shrink-0" />
             )}
             <p className="text-[var(--ink)] flex-1">{message}</p>
             <button
               onClick={onClose}
-              className="p-1 hover:bg-white/10 rounded-full transition-colors"
+              className="p-1 hover:bg-[rgb(var(--tint)/0.10)] rounded-full transition-colors"
               aria-label="Close notification"
             >
               <X className="w-4 h-4 text-[var(--ink-dim)]" />

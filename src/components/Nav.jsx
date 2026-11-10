@@ -1,9 +1,10 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
+import ThemeToggle from "./ThemeToggle";
 
 const NAV_ITEMS = ["home", "skills", "portfolio", "experience", "contact"];
 
-function Nav({ activeSection, isMenuOpen, setIsMenuOpen, scrollToSection, scrollProgress }) {
+function Nav({ activeSection, isMenuOpen, setIsMenuOpen, scrollToSection, scrollProgress, theme, toggleTheme }) {
   return (
     <nav className="fixed inset-x-0 top-3 z-40 px-4">
       <div
@@ -29,8 +30,8 @@ function Nav({ activeSection, isMenuOpen, setIsMenuOpen, scrollToSection, scroll
                   href={`#${item}`}
                   className={`cursor-pointer px-4 py-1.5 rounded-full transition-all duration-200 ${
                     activeSection === item
-                      ? "text-[var(--accent)] bg-white/10 shadow-[inset_0_1px_0_rgba(255,255,255,0.3)]"
-                      : "text-[var(--ink-dim)] hover:text-[var(--ink)] hover:bg-white/5"
+                      ? "text-[var(--accent)] bg-[rgb(var(--tint)/0.10)] shadow-[inset_0_1px_0_var(--glass-hl)]"
+                      : "text-[var(--ink-dim)] hover:text-[var(--ink)] hover:bg-[rgb(var(--tint)/0.05)]"
                   }`}
                 >
                   {item}
@@ -38,13 +39,16 @@ function Nav({ activeSection, isMenuOpen, setIsMenuOpen, scrollToSection, scroll
               ))}
             </div>
 
-            <button
-              className="md:hidden text-[var(--ink)]"
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              aria-label="Toggle menu"
-            >
-              {isMenuOpen ? <X /> : <Menu />}
-            </button>
+            <div className="flex items-center gap-2">
+              <ThemeToggle theme={theme} toggleTheme={toggleTheme} />
+              <button
+                className="md:hidden text-[var(--ink)]"
+                onClick={() => setIsMenuOpen(!isMenuOpen)}
+                aria-label="Toggle menu"
+              >
+                {isMenuOpen ? <X /> : <Menu />}
+              </button>
+            </div>
           </div>
         </div>
 
@@ -64,7 +68,7 @@ function Nav({ activeSection, isMenuOpen, setIsMenuOpen, scrollToSection, scroll
                     href={`#${item}`}
                     className={`block py-2 px-4 rounded-full cursor-pointer transition-colors ${
                       activeSection === item
-                        ? "text-[var(--accent)] bg-white/10"
+                        ? "text-[var(--accent)] bg-[rgb(var(--tint)/0.10)]"
                         : "text-[var(--ink-dim)]"
                     }`}
                   >

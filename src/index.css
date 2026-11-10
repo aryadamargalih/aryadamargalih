@@ -4,7 +4,11 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
+/* ================= Theme tokens =================
+   Dark is the default. Light is applied via <html data-theme="light">. */
+:root,
+:root[data-theme="dark"] {
+  color-scheme: dark;
   --bg: #0b0d12;
   --panel: #1a1d23;
   --line: #2a2e37;
@@ -12,7 +16,75 @@
   --ink: #edeef0;
   --ink-dim: #a1a8b6;
   --accent: #f5a623;
+  --accent-rgb: 245 166 35;
   --accent-dim: #f5a62333;
+
+  /* subtle fills/borders: rgb(var(--tint) / alpha) */
+  --tint: 255 255 255;
+  --inset: rgba(0, 0, 0, 0.2);
+
+  /* glass surface */
+  --glass-1: rgba(255, 255, 255, 0.14);
+  --glass-2: rgba(255, 255, 255, 0.05);
+  --glass-3: rgba(255, 255, 255, 0.08);
+  --glass-hover-1: rgba(255, 255, 255, 0.2);
+  --glass-hover-2: rgba(255, 255, 255, 0.08);
+  --glass-hover-3: rgba(255, 255, 255, 0.12);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-hl: rgba(255, 255, 255, 0.4);
+  --glass-hl-low: rgba(255, 255, 255, 0.08);
+  --glass-glow: rgba(255, 255, 255, 0.05);
+  --glass-drop: rgba(0, 0, 0, 0.55);
+  --glass-fallback: rgba(30, 33, 41, 0.92);
+  --rim-1: rgba(255, 255, 255, 0.6);
+  --rim-2: rgba(255, 255, 255, 0.3);
+
+  --input-bg: rgba(255, 255, 255, 0.06);
+  --input-bg-focus: rgba(255, 255, 255, 0.1);
+  --input-border: rgba(255, 255, 255, 0.12);
+  --input-shadow: rgba(0, 0, 0, 0.25);
+
+  --orb-opacity: 1;
+  --danger: #f87171;
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+  --bg: #eceff6;
+  --panel: #ffffff;
+  --line: #cfd4e2;
+  --line-soft: #dde1ec;
+  --ink: #12141c;
+  --ink-dim: #4a5163;
+  --accent: #b45309;
+  --accent-rgb: 180 83 9;
+  --accent-dim: #b4530922;
+
+  --tint: 20 24 48;
+  --inset: rgba(20, 24, 48, 0.06);
+
+  --glass-1: rgba(255, 255, 255, 0.72);
+  --glass-2: rgba(255, 255, 255, 0.38);
+  --glass-3: rgba(255, 255, 255, 0.55);
+  --glass-hover-1: rgba(255, 255, 255, 0.86);
+  --glass-hover-2: rgba(255, 255, 255, 0.55);
+  --glass-hover-3: rgba(255, 255, 255, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.75);
+  --glass-hl: rgba(255, 255, 255, 0.95);
+  --glass-hl-low: rgba(255, 255, 255, 0.5);
+  --glass-glow: rgba(255, 255, 255, 0.35);
+  --glass-drop: rgba(40, 52, 100, 0.22);
+  --glass-fallback: rgba(250, 251, 255, 0.95);
+  --rim-1: rgba(255, 255, 255, 1);
+  --rim-2: rgba(255, 255, 255, 0.7);
+
+  --input-bg: rgba(255, 255, 255, 0.55);
+  --input-bg-focus: rgba(255, 255, 255, 0.85);
+  --input-border: rgba(20, 24, 48, 0.14);
+  --input-shadow: rgba(40, 52, 100, 0.12);
+
+  --orb-opacity: 0.55;
+  --danger: #dc2626;
 }
 
 html {
@@ -23,6 +95,7 @@ body {
   background: var(--bg);
   color: var(--ink);
   font-family: "Inter", sans-serif;
+  transition: background-color 0.3s, color 0.3s;
 }
 
 .font-display {
@@ -164,7 +237,7 @@ body {
 
 ::selection {
   background: var(--accent);
-  color: var(--bg);
+  color: #fff;
 }
 
 /* Focus visibility */
@@ -177,7 +250,7 @@ textarea:focus-visible {
 }
 
 /* ================= Liquid glass ================= */
-.orb { position: absolute; border-radius: 9999px; will-change: transform; }
+.orb { position: absolute; border-radius: 9999px; will-change: transform; opacity: var(--orb-opacity); transition: opacity .4s; }
 .orb-amber  { width: 60vmax; height: 60vmax; left: -15vmax; top: -10vmax;
   background: radial-gradient(circle, rgba(245,166,35,.55), transparent 65%); animation: drift-a 28s ease-in-out infinite alternate; }
 .orb-indigo { width: 55vmax; height: 55vmax; right: -18vmax; top: 25vh;
@@ -190,15 +263,15 @@ textarea:focus-visible {
 @media (prefers-reduced-motion: reduce) { .orb { animation: none; } }
 
 .glass, .glass-sm {
-  background: linear-gradient(135deg, rgba(255,255,255,.14) 0%, rgba(255,255,255,.05) 45%, rgba(255,255,255,.08) 100%);
+  background: linear-gradient(135deg, var(--glass-1) 0%, var(--glass-2) 45%, var(--glass-3) 100%);
   -webkit-backdrop-filter: blur(24px) saturate(180%);
   backdrop-filter: blur(24px) saturate(180%);
-  border: 1px solid rgba(255,255,255,.10);
+  border: 1px solid var(--glass-border);
   box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.40),
-    inset 0 -1px 0 rgba(255,255,255,.08),
-    inset 0 0 24px rgba(255,255,255,.05),
-    0 12px 40px -12px rgba(0,0,0,.55);
+    inset 0 1px 0 var(--glass-hl),
+    inset 0 -1px 0 var(--glass-hl-low),
+    inset 0 0 24px var(--glass-glow),
+    0 12px 40px -12px var(--glass-drop);
   transition: background .3s, box-shadow .3s, transform .3s, color .2s;
 }
 .glass-sm { -webkit-backdrop-filter: blur(12px) saturate(170%); backdrop-filter: blur(12px) saturate(170%); }
@@ -206,13 +279,13 @@ textarea:focus-visible {
 /* specular rim light */
 .glass::before, .glass-sm::before, .glass-accent::before {
   content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 1px; pointer-events: none;
-  background: linear-gradient(145deg, rgba(255,255,255,.6), rgba(255,255,255,0) 35%, rgba(255,255,255,0) 65%, rgba(255,255,255,.3));
+  background: linear-gradient(145deg, var(--rim-1), rgba(255,255,255,0) 35%, rgba(255,255,255,0) 65%, var(--rim-2));
   -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   -webkit-mask-composite: xor; mask-composite: exclude;
 }
 .glass-hover:hover {
-  background: linear-gradient(135deg, rgba(255,255,255,.2) 0%, rgba(255,255,255,.08) 45%, rgba(255,255,255,.12) 100%);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.5), inset 0 0 28px rgba(245,166,35,.10), 0 16px 48px -12px rgba(245,166,35,.28);
+  background: linear-gradient(135deg, var(--glass-hover-1) 0%, var(--glass-hover-2) 45%, var(--glass-hover-3) 100%);
+  box-shadow: inset 0 1px 0 var(--glass-hl), inset 0 0 28px rgb(var(--accent-rgb) / .10), 0 16px 48px -12px rgb(var(--accent-rgb) / .28);
 }
 
 .glass-accent {
@@ -226,15 +299,21 @@ textarea:focus-visible {
 .glass-accent:hover { transform: translateY(-1px); filter: brightness(1.06); }
 
 .glass-input {
-  background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12); border-radius: 1rem;
+  background: var(--input-bg); border: 1px solid var(--input-border); border-radius: 1rem;
   padding: .75rem 1rem; color: var(--ink);
   -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
-  box-shadow: inset 0 2px 6px rgba(0,0,0,.25), inset 0 1px 0 rgba(255,255,255,.08);
+  box-shadow: inset 0 2px 6px var(--input-shadow), inset 0 1px 0 var(--glass-hl-low);
   transition: border-color .2s, box-shadow .2s, background .2s;
 }
-.glass-input:focus { outline: none; background: rgba(255,255,255,.1); border-color: rgba(245,166,35,.7);
-  box-shadow: inset 0 2px 6px rgba(0,0,0,.2), 0 0 0 3px rgba(245,166,35,.18); }
+.glass-input:focus { outline: none; background: var(--input-bg-focus); border-color: rgb(var(--accent-rgb) / .7);
+  box-shadow: inset 0 2px 6px var(--input-shadow), 0 0 0 3px rgb(var(--accent-rgb) / .18); }
+.glass-input::placeholder { color: var(--ink-dim); opacity: .7; }
 
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-  .glass, .glass-sm { background: rgba(30,33,41,.92); }
+  .glass, .glass-sm { background: var(--glass-fallback); }
 }
+
+/* Theme toggle icon swap */
+.theme-toggle .icon-sun, .theme-toggle .icon-moon { transition: transform .4s, opacity .3s; }
+:root[data-theme="light"] .theme-toggle .icon-moon,
+:root:not([data-theme="light"]) .theme-toggle .icon-sun { opacity: 0; transform: rotate(-90deg) scale(.5); }

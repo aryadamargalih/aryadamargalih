@@ -11,7 +11,7 @@ import { projects } from "../data";
 
 const STATUS_STYLES = {
   live: "border-[var(--accent)]/50 bg-[var(--accent)]/15 text-[var(--accent)]",
-  "in progress": "border-white/15 bg-white/5 text-[var(--ink-dim)]",
+  "in progress": "border-[rgb(var(--tint)/0.15)] bg-[rgb(var(--tint)/0.05)] text-[var(--ink-dim)]",
   archived: "border-[#ef4444]/40 text-[#ef4444]/80",
 };
 
@@ -38,7 +38,7 @@ function ProjectGallery({ images, title }) {
             key={i}
             src={src}
             alt={`${title} screenshot ${i + 1}`}
-            className="relative shrink-0 snap-center max-h-[85%] w-auto rounded-2xl border border-white/20 shadow-2xl"
+            className="relative shrink-0 snap-center max-h-[85%] w-auto rounded-2xl border border-[rgb(var(--tint)/0.20)] shadow-2xl"
           />
         ))}
       </div>
@@ -122,7 +122,7 @@ function Portfolio({ sectionRef }) {
                     {project.tech.map((tech, i) => (
                       <span
                         key={i}
-                        className="font-mono text-xs px-3 py-1 border border-white/15 bg-white/5 rounded-full text-[var(--ink-dim)]"
+                        className="font-mono text-xs px-3 py-1 border border-[rgb(var(--tint)/0.15)] bg-[rgb(var(--tint)/0.05)] rounded-full text-[var(--ink-dim)]"
                       >
                         {tech}
                       </span>
@@ -147,7 +147,7 @@ function Portfolio({ sectionRef }) {
                 </div>
               </div>
 
-              <div className="relative aspect-video md:aspect-auto md:max-h-[400px] overflow-hidden bg-black/20 border-t md:border-t-0 md:border-l border-white/10">
+              <div className="relative aspect-video md:aspect-auto md:max-h-[400px] overflow-hidden bg-[var(--inset)] border-t md:border-t-0 md:border-l border-[rgb(var(--tint)/0.10)]">
                 {project.images?.length ? (
                   <ProjectGallery images={project.images} title={project.title} />
                 ) : project.image ? (
@@ -161,7 +161,7 @@ function Portfolio({ sectionRef }) {
                       <img
                         src={project.image}
                         alt={project.title}
-                        className="relative max-h-full w-auto rounded-2xl border border-white/20 shadow-2xl transition-transform duration-500 ease-out group-hover:scale-105 group-hover:-translate-y-1"
+                        className="relative max-h-full w-auto rounded-2xl border border-[rgb(var(--tint)/0.20)] shadow-2xl transition-transform duration-500 ease-out group-hover:scale-105 group-hover:-translate-y-1"
                       />
                     </div>
                   ) : (
@@ -177,7 +177,7 @@ function Portfolio({ sectionRef }) {
                 ) : (
                   <div className="w-full h-full flex items-center justify-center">
                     <Smartphone
-                      className="w-12 h-12 text-white/20"
+                      className="w-12 h-12 text-[rgb(var(--tint)/0.20)]"
                       strokeWidth={1.2}
                     />
                   </div>
@@ -185,7 +185,7 @@ function Portfolio({ sectionRef }) {
                 {project.status !== "archived" && hasLink && (
                   <a
                     href={project.link}
-                    className="absolute bottom-4 left-4 flex items-center gap-1.5 font-mono text-xs text-[var(--accent)] opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300"
+                    className="absolute bottom-4 left-4 flex items-center gap-1.5 font-mono text-xs text-[#f5a623] opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300"
                   >
                     View project <ExternalLink size={14} />
                   </a>
